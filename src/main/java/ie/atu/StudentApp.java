@@ -3,8 +3,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static ie.atu.Student.showFile;
-
 public class StudentApp {
     public static void main(String[] args) {
 
@@ -55,7 +53,33 @@ public class StudentApp {
                 System.out.println("Could not write to file: " + ex.getMessage());
             }
             count++;
-            showFile();
+            showFile(fileName);
+        }
+    }
+    //print file with student information
+    static void showFile(String fileName){
+        BufferedReader br = null;
+        try{
+            FileReader neverUsed = new FileReader(fileName);
+            br = new BufferedReader(neverUsed);
+            System.out.println("Contents of students.txt: ");
+            String line;
+            while((line = br.readLine())!=null){
+                System.out.println(" - " + line);
+            }
+        }
+        catch(IOException ex){
+            System.out.println("Could not read file: " + ex.getMessage());
+        }
+        finally{
+            if(br != null){
+                try{
+                    br.close();
+                }
+                catch(IOException closeEx){
+                    System.out.println("Could not close file: " + closeEx.getMessage());
+                }
+            }
         }
     }
 
