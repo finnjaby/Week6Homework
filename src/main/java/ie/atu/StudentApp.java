@@ -1,9 +1,9 @@
 package ie.atu;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static ie.atu.Student.showFile;
 
 public class StudentApp {
     public static void main(String[] args) {
@@ -17,7 +17,7 @@ public class StudentApp {
         System.out.println("Enter the file name (e.g, students.txt): ");
         String fileName = sc.nextLine().trim();
 
-        while(true) {
+        while(true) {       //check that amount entered is an integer
             System.out.println("How many students do you want to enter: ");
             String text = sc.nextLine().trim();
             try {
@@ -45,7 +45,7 @@ public class StudentApp {
             System.out.print("Please enter students course: ");
             String course = sc.nextLine();
 
-            try(PrintWriter out = new PrintWriter(new FileWriter(fileName, true))) {
+            try(PrintWriter out = new PrintWriter(new FileWriter(fileName, true))) {    //saves info to separate file
                 out.println(name);
                 out.println(email);
                 out.println(course);
@@ -55,10 +55,8 @@ public class StudentApp {
                 System.out.println("Could not write to file: " + ex.getMessage());
             }
             count++;
-
-        }
-        for(Student student : students) {       //print list of students
-            System.out.println("Name: " + student.getName() + " Email: " + student.getEmail() + " Course: " + student.getCourse());
+            showFile();
         }
     }
+
 }
