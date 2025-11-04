@@ -1,14 +1,22 @@
 package ie.atu;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StudentApp {
     public static void main(String[] args) {
 
-        int count =0;
+        int count = 0;
         int studentAmount;
+
         ArrayList<Student> students = new ArrayList<>();        //store objects type student
         Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the file name (e.g, students.txt): ");
+        String fileName = sc.nextLine().trim();
+
         while(true) {
             System.out.println("How many students do you want to enter: ");
             String text = sc.nextLine().trim();
@@ -37,11 +45,15 @@ public class StudentApp {
             System.out.print("Please enter students course: ");
             String course = sc.nextLine();
 
-            Student studentTemp = new Student();    //create default student
-            studentTemp.setName(name);
-            studentTemp.setEmail(email);
-            studentTemp.setCourse(course);
-            students.add(studentTemp);
+            try(PrintWriter out = new PrintWriter(new FileWriter(fileName, true))) {
+                out.println(name);
+                out.println(email);
+                out.println(course);
+                System.out.println("Saved to " + fileName);
+            }
+            catch(IOException ex){
+                System.out.println("Could not write to file: " + ex.getMessage());
+            }
             count++;
 
         }
