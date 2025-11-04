@@ -6,12 +6,20 @@ public class StudentApp {
     public static void main(String[] args) {
 
         int count =0;
+        int studentAmount;
         ArrayList<Student> students = new ArrayList<>();        //store objects type student
         Scanner sc = new Scanner(System.in);
-
-        System.out.print("How many students do you want to enter? ");
-        int studentAmount = sc.nextInt();
-        sc.nextLine();
+        while(true) {
+            System.out.println("How many students do you want to enter: ");
+            String text = sc.nextLine().trim();
+            try {
+                studentAmount = Integer.parseInt(text);
+                break;
+            }
+            catch(NumberFormatException e) {
+                System.out.println("Invalid input.");
+            }
+        }
 
         while(count<studentAmount) {        //prompt for student information
             System.out.print("Please enter students name: ");
